@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int ret=0;
+    bool isValid(int x,int y,vector<vector<int>> &board){
+        int m=x,n=y;
+        while(m>=0&&n>=0){
+            if(board[m][n]==1)return false;
+            m--;n--;
+        }
+         m=x,n=y;
+        while(m>=0&&n<board.size()){
+            if(board[m][n]==1)return false;
+            m--;n++;
+        }
+        m=board.size()-1;n=y;
+        while(m>=0){
+            if(board[m][n]==1)return false;
+            m--;
+        }
+        m=x;n=board.size()-1;
+        while(n>=0){
+            if(board[m][n]==1)return false;
+            n--;
+        }
+        return true;
+    }
+    int totalNQueens(int n) {
+        vector<vector<int>> board;
+        board.resize(n,vector<int>(n,0));
+        search(0,n,board);
+        return ret;
+    }
+    void search(int x,const int n,vector<vector<int>> &board){
+        for(int i=0;i<n;i++){
+            if(isValid(x,i,board)){
+                board[x][i]=1;
+                if(x+1==n){ret++;board[x][i]=0;return;}
+                search(x+1,n,board);
+                board[x][i]=0;
+            }
+        }
+    }
+};//the same as 51.N-Queens,and this is easier.
